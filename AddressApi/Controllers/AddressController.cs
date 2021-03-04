@@ -25,7 +25,8 @@ namespace AddressApi.Controllers
         {
             return new Address()
             {
-                City = "Seattle"
+                City = "Seattle",
+                Country = "USA"
             };
         }
 
@@ -35,7 +36,8 @@ namespace AddressApi.Controllers
             //switch country return address extension for the country
             return new Address()
             {
-                City = "Seattle"
+                City = "London",
+                Country = "England"
             };
         }
 
