@@ -12,7 +12,6 @@ namespace AddressApi.Protocol
 {
     public class AddressProvider
     {
-        //private string[] alwaysRetuned = ControllerConstants.AlwaysRetunedAttributes;
         private readonly AddressContext context;
         private int defaultStartIndex = 1;
         private readonly ILogger<AddressController> logger;
@@ -23,11 +22,54 @@ namespace AddressApi.Protocol
             this.logger = log;
         }
 
-        public async Task<List<Address>> Query(string query)
+        public async Task<List<Address>> Query(Address query)
         {
 
-            IEnumerable<Address> addresses = new List<Address>();
+            IEnumerable<Address> addresses = this.context.addresses;
 
+
+            if(query.Country != null)
+            {
+                addresses = addresses.Where(p => p.Country.Equals(query.Country ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.City != null)
+            {
+                addresses = addresses.Where(p => p.City.Equals(query.City ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.District != null)
+            {
+                addresses = addresses.Where(p => p.District.Equals(query.District ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.PostalCode != null)
+            {
+                addresses = addresses.Where(p => p.PostalCode.Equals(query.PostalCode ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.Unit != null)
+            {
+                addresses = addresses.Where(p => p.Unit.Equals(query.Unit ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.Province != null)
+            {
+                addresses = addresses.Where(p => p.Province.Equals(query.Province ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+            if (query.Street != null)
+            {
+                addresses = addresses.Where(p => p.Street.Equals(query.Street ?? String.Empty, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+
+
+            int total = addresses.Count();
+
+            if(total > 20)
+            {
+                addresses = addresses.Take(20);
+            }
 
             return (List<Address>)addresses;
         }

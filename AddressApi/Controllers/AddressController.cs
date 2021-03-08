@@ -16,12 +16,15 @@ namespace AddressApi.Controllers
     {
         internal const string AttributeValueIdentifier = "{identifier}";
 
-        private readonly ILogger<AddressController> _logger;
+        private readonly AddressContext context;
+        private readonly ILogger<AddressController> logger;
         private AddressProvider provider;
 
-        public AddressController(ILogger<AddressController> logger)
+        public AddressController(AddressContext context, ILogger<AddressController> logger)
         {
-            _logger = logger;
+            this.context = context;
+            this.logger = logger;
+            this.provider = new AddressProvider(this.context, this.logger);
         }
 
         //[Microsoft.AspNetCore.Mvc.HttpGet]
@@ -34,42 +37,22 @@ namespace AddressApi.Controllers
         //    };
         //} //for testing
 
-        [Microsoft.AspNetCore.Mvc.HttpGet]
-        public async Task<ActionResult<List<Address>>> Get()
-        {
 
-            string query = this.Request.QueryString.ToUriComponent();
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        public async Task<List<Address>> Post([Microsoft.AspNetCore.Mvc.FromBody] Address addressQuery)
+        {
 
             try
             {
-                List<Address> list = await this.provider.Query(query).ConfigureAwait(false);
+                List<Address> list = await this.provider.Query(addressQuery).ConfigureAwait(false);
 
                 return list;
             }
             catch (Exception e)
             {
-                _logger.LogError(e.ToString());
-                return this.StatusCode(500, "A request to the database could not be processed");
+                logger.LogError(e.ToString());
                 throw;
             }
-        }
-
-
-        [Microsoft.AspNetCore.Mvc.HttpGet(AddressController.AttributeValueIdentifier)]
-        public async Task<Address> Get([FromUri] string countryIdentifier)
-        {
-            //switch country return address extension for the country
-            return new Address()
-            {
-                City = "London",
-                Country = "England"
-            };
-        }
-
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public async Task<ActionResult> Post([Microsoft.AspNetCore.Mvc.FromBody] Address newAddress)
-        {
-            return this.NoContent();
         }
     }
 }
