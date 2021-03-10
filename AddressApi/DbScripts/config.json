@@ -1,0 +1,10 @@
+{
+  "csv_file_path": "D:\\Seattleu\\csc5200\\Addresses",
+  "db_user": "ryan",
+  "db_password": "passpass",
+  "db_name": "country_database",
+  "db_table": "country_data",
+  "stop_after_row": 30,
+  "skip_after_sub_dir": 15,
+  "skip_after_csv": 15
+}

@@ -1,0 +1,70 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  .addressTable
+  {
+	position:absolute; left:100px;
+  
+  }
+  </style>
+  <title>Address Search</title>
+</head>
+<body style="font:14px Calibri;">
+    <div>Select Country</div>
+
+      <select id="sel" onchange="change_myselect(this.value)">
+         <option value = "">-- Select --</option>
+         <option value = "Australia">Australia</option>
+         <option value = "Austria">Austria</option>
+         <option value = "Belgium">Belgium</option>
+         <option value = "Brazil">Brazil</option>
+         <option value = "Canada">Canada</option>
+         <option value = "Chile">Chile</option>
+         <option value = "Czech_Republic">Czech Republic</option>
+         <option value = "France">France</option>
+         <option value = "Germany">Germany</option>
+		 <option value = "Luxembourg">Luxembourg</option>
+         <option value = "Mexico">Mexico</option>
+         <option value = "Netherlands">Netherlands (Holland, Europe)</option>
+         <option value = "Poland">Poland</option>
+         <option value = "Russia">Russia</option>
+         <option value = "South_Korea">South Korea</option>
+         <option value = "Taiwan">Taiwan</option>
+         <option value = "United_States">United States of America</option>
+        </select>
+
+		<form id="get_detailsSearch"></form>
+		
+		<p id="get_addresses"></p>
+
+        <div>
+          <button onclick="sendSpecifiedCountryRequest()">sendRequest</button> 
+        </div>
+
+        <br/><br/><br/><br/><br/><br/>
+
+        <div>Cross Country Search</div>
+    
+        <div>
+            <form id="crossCountrySearchForm">
+                <label>NUMBER</label>
+                <input class="addressTable" id="crossCountryNumber">
+                <br/><br/>
+                <label>STREET</label>
+                <input class="addressTable" id="crossCountryStreet">
+                <br/><br/>
+            </form>
+        </div>
+    
+        <div>
+            <button onclick="sendCrossCountryRequest()">sendRequest</button> 
+        </div>
+
+        <div id="addressArea"></div>
+        
+    </body>
+    
+    <script src="scripts.js"></script>
+
+</html>

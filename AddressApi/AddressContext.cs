@@ -37,7 +37,7 @@ namespace AddressApi
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from country_data where id < 10", conn);
+                MySqlCommand cmd = new MySqlCommand("select * from country_data", conn);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -45,13 +45,14 @@ namespace AddressApi
                     {
                         list.Add(new Address()
                         {
+                            Country = reader["COUNTRY"].ToString(),
                             Street = reader["STREET"].ToString(),
                             Unit = reader["UNIT"].ToString(),
                             City = reader["CITY"].ToString(),
                             District = reader["DISTRICT"].ToString(),
                             Region = reader["REGION"].ToString(),
                             PostalCode = reader["POSTCODE"].ToString()
-                        });
+                        }); ;
                     }
                 }
             }
