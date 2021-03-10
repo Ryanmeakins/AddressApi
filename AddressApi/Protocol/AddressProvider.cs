@@ -25,7 +25,7 @@ namespace AddressApi.Protocol
         public async Task<List<Address>> Query(Address query)
         {
 
-            IEnumerable<Address> addresses = this.context.addresses;
+            IEnumerable<Address> addresses = this.context.GetAllAdresses();
 
 
             if(query.Country != null)

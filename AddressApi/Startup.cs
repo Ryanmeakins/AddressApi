@@ -19,6 +19,7 @@ namespace AddressApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.Add(new ServiceDescriptor(typeof(AddressContext), new AddressContext(Configuration.GetConnectionString("DefaultConnection"))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
