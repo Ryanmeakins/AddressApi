@@ -25,7 +25,7 @@ namespace AddressApi.Protocol
         public async Task<List<Address>> Query(Address query)
         {
 
-            IEnumerable<Address> addresses = this.context.GetAllAdresses();
+            List<Address> addresses = this.context.GetAllAdresses();
 
 
             if(query.Country != null)
@@ -64,12 +64,12 @@ namespace AddressApi.Protocol
             }
 
 
-            int total = addresses.Count();
+            //int total = addresses.Count();
 
-            if(total > 20)
-            {
-                addresses = addresses.Take(20);
-            }
+            //if(total > 20)
+            //{
+            //    addresses = (List<Address>)addresses.Take(20);
+            //}
 
             return (List<Address>)addresses;
         }
